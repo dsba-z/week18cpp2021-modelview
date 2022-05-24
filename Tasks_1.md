@@ -231,13 +231,7 @@ Add a private variable `QList<QList<QString>> dataTable` to your model.
 
 In the constructor of the model, add some data to the table. Set `rowCount()`, `columnCount()` and `data()` to show data from the table.
 
-## Task 3. Editing data table
-
-Edit data in `dataTable`, using the approach above with `setData`. Make sure you write the function `flags`.
-
-Check if you can edit the data through `QTableView`.
-
-## Task 4. Loading data from a file.
+## Task 3. Loading data from a file.
 
 In the constructor of the model, open the data file and fill `dataTable` with data from the file.
 
@@ -265,3 +259,9 @@ Here is an example of how this code may look like. It uses Qt File interface.
 
 Test that this works.
 
+
+## Task 4. Editing data table
+
+Edit data in `dataTable`, using the approach above with `setData`. Make sure you write the function `flags`.
+
+Check if you can edit the data through `QTableView`.
