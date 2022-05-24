@@ -17,8 +17,8 @@ Then, add a new model class to your application.
 1. Right-click the name of the project (a little hammer icon in project view),
 2. "Add new..."
 3. "Qt" (left column)" , "Qt Item Model" (right column)
-4. Name your model class. For example, `ExampleModel`.
-5. Check boxes "Customize header row", "Items are editable"
+4. Name your model class. For example, `ExampleModel`. Select `QAbstractTableModel` as a base class.
+5. Uncheck all checkboxes
 6. Check your new header and source files to see templates for the model.
 
 
