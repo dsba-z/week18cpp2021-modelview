@@ -6,6 +6,10 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    
+    exampleModel = new ExampleModel(this);
+    
+    ui->tableView->setModel(exampleModel);
 }
 
 MainWindow::~MainWindow()
