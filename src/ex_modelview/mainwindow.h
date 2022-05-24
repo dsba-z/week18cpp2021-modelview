@@ -1,5 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+#include "examplemodel.h"
 
 #include <QMainWindow>
 
@@ -17,5 +18,6 @@ public:
     
 private:
     Ui::MainWindow *ui;
+    ExampleModel *examplemodel;
 };
 #endif // MAINWINDOW_H
