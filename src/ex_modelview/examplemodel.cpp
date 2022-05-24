@@ -5,6 +5,19 @@ ExampleModel::ExampleModel(QObject *parent)
 {
 }
 
+
+QVariant ExampleModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    if (role == Qt::DisplayRole && orientation == Qt::Horizontal)
+    {
+
+        
+        return (section + 1)*100;
+    }
+
+    return QVariant();
+}
+
 int ExampleModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
