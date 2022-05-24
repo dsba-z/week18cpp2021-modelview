@@ -31,6 +31,10 @@ QVariant ExampleModel::data(const QModelIndex &index, int role) const
     
     int row = index.row();
     int column = index.column();
+    if (role == Qt::DisplayRole)
+    {
+        return row + column;
+    }
     
     // FIXME: Implement me!
     return QVariant();
