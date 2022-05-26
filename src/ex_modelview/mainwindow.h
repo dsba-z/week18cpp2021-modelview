@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "examplemodel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,6 +17,7 @@ public:
     ~MainWindow();
     
 private:
+    ExampleModel *_exampleModel;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H
