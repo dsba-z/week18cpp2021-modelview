@@ -203,7 +203,48 @@ Function `flags` only controls flags, showing different states and permissions f
 The main function here is `setData`. It works similarly to `setHeaderData` but instead of a header, it changes data itselt. The logic is similar: check if new data is different from the old data, change the underlying data representation, emit signal `dataChanged` so the views know they have to update themselves.
 
 
-Other two templates (adding and removing rows/columns) will be added later.
+
+## Rows and columns can be added
+
+https://doc.qt.io/qt-5/qabstractitemmodel.html#beginInsertRows
+
+
+Header:
+
+```cpp
+    // Add data:
+    bool insertRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
+    bool insertColumns(int column, int count, const QModelIndex &parent = QModelIndex()) override;
+```
+
+
+Source:
+
+```cpp
+bool addRowsCheck::insertRows(int row, int count, const QModelIndex &parent)
+{
+    beginInsertRows(parent, row, row + count - 1);
+    // FIXME: Implement me!
+    endInsertRows();
+    return true;
+}
+
+bool addRowsCheck::insertColumns(int column, int count, const QModelIndex &parent)
+{
+    beginInsertColumns(parent, column, column + count - 1);
+    // FIXME: Implement me!
+    endInsertColumns();
+    return true;
+}
+```
+
+
+The important part here is a pair of functions `beginInsertRows` / `endInsertRows` and the same pair for columns. Whenever you modify the data of your model and change the number of columns or rows, you need to wrap the code in this pair of functions.
+
+The arguments here are:
+- `row` - the index of the first **new** row. For example, if you have 3 rows (index 0-1-2) and you add a fourth one (index 3), argument `row` must be 3.
+- `row + count - 1` - the index of the **last** new row. In the example above, this is also equal to 3.
+- `parent` - only relevant for Item model, you can just use the input variable of the function.
 
 # Connecting a model to a view
 
@@ -265,3 +306,12 @@ Test that this works.
 Edit data in `dataTable`, using the approach above with `setData`. Make sure you write the function `flags`.
 
 Check if you can edit the data through `QTableView`.
+
+## Task 5. Adding new rows.
+
+Make a new model class and check the option "Rows and columns can be added". Alternatively, use the code above in the section "Rows and columns can be added".
+
+Add a button that adds a new row to your data. Fill the new row with whatever you want, for example, constant strings.
+
+
+
