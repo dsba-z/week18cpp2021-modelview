@@ -1,9 +1,10 @@
 #include "examplemodel.h"
+#include <QFile>
 
 ExampleModel::ExampleModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
-    fillDataTable();
+//    fillDataTable();
 }
 
 void ExampleModel::fillDataTable()
@@ -18,6 +19,30 @@ void ExampleModel::fillDataTable()
         dataTable.append(newRow);
     }
 }
+
+
+void ExampleModel::fillDataTableFromFile(QString path)
+{
+    QFile inputFile(path);
+    inputFile.open(QFile::ReadOnly | QFile::Text);
+    QTextStream inputStream(&inputFile);
+    
+    QString firstline = inputStream.readLine();
+    
+    while(!inputStream.atEnd())
+    {
+        QString line = inputStream.readLine();
+        
+        QList<QString> dataRow;
+        for (QString& item : line.split(",")) {
+            dataRow.append(item);
+        }
+        dataTable.append(dataRow);
+    }
+    inputFile.close();
+}
+
+
 
 
 QVariant ExampleModel::headerData(int section, Qt::Orientation orientation, int role) const
