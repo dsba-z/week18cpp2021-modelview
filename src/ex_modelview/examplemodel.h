@@ -17,6 +17,9 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     
 private:
+    void fillDataTable();
+    
+    QList<QList<QString>> dataTable;
 };
 
 #endif // EXAMPLEMODEL_H
