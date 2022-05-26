@@ -21,6 +21,8 @@ public:
     
     
 private:
+    void fillDataTable();
+    QList<QList<QString>> dataTable;
 };
 
 #endif // EXAMPLEMODEL_H
