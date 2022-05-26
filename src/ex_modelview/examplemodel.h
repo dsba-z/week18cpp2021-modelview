@@ -15,9 +15,11 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    
+    void fillDataTable();
 
 private:
-    QList<QList<QString>> tableData;
+    QList<QList<QString>> dataTable;
 };
 
 #endif // EXAMPLEMODEL_H
