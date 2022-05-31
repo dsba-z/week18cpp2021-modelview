@@ -79,3 +79,6 @@ You can use `ui->tableView->setColumnHidden(0, true);` to hide the first column.
 
 Leave the column with name and 2-3 other columns you would like to leave.
 
+Add several `QLabel` objects that will display data of the currently selected passenger.
+
+Use the signal `clicked(QModelIndex)` of `tableView` to find which cell the user clicked. Connect it to a slot that changes the `QLabel` objects to output correct data.
