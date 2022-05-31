@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     
     
     QObject::connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(loadFileSlot()));
+    QObject::connect(ui->tableView, SIGNAL(clicked(QModelIndex)), this, SLOT(slotName(QModelIndex)));
 }
 
 MainWindow::~MainWindow()
@@ -22,8 +23,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadFileSlot()
 {
-    MainWindow w;
-    w.show();
     QString fileName = QFileDialog::getOpenFileName(this, "Open File",
                                                     "..",
                                                     "Data (*.csv)");
@@ -36,3 +35,16 @@ void MainWindow::loadFileSlot()
     ui->tableView->setModel(examplemodel);
     
 }
+
+void MainWindow::slotName(const QModelIndex &index)
+{
+    int row = index.row();
+    int column = 5;
+    
+    QModelIndex ageIndex = examplemodel->index(row, column);
+    
+    QVariant ageData = examplemodel->data(ageIndex);
+    
+    ui->labelAgeData->setText(ageData.toString());
+}
+

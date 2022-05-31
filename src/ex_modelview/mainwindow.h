@@ -20,6 +20,8 @@ public:
 private slots:
     void loadFileSlot();
     
+    void slotName(const QModelIndex &index);
+    
 private:
     Ui::MainWindow *ui;
     ExampleModel *examplemodel;
