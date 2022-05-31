@@ -19,6 +19,7 @@ public:
 private slots:
     void loadFileSlot();
     
+    
 private:
     Ui::MainWindow *ui;
     ExampleModel *exampleModel;
