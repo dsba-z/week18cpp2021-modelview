@@ -69,10 +69,29 @@ QVariant ExampleModel::data(const QModelIndex &index, int role) const
     
     int row = index.row();
     int column = index.column();
-    if (role == Qt::DisplayRole)
+    if (role == Qt::DisplayRole || role == Qt::EditRole)
     {
         return dataTable[row][column];
     }
     
     return QVariant();
+}
+bool ExampleModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (data(index, role) != value) {
+        int row = index.row();
+        int column = index.column();
+        dataTable[row][column] = value.toString();
+        emit dataChanged(index, index, {role});
+        return true;
+    }
+    return false;
+}
+
+Qt::ItemFlags ExampleModel::flags(const QModelIndex &index) const
+{
+    if (!index.isValid())
+        return Qt::NoItemFlags;
+    
+    return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
 }

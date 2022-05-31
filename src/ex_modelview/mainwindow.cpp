@@ -22,6 +22,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadFileSlot()
 {
+    MainWindow w;
+    w.show();
     QString fileName = QFileDialog::getOpenFileName(this, "Open File",
                                                     "..",
                                                     "Data (*.csv)");
