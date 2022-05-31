@@ -1,23 +1,34 @@
 #include "examplemodel.h"
+#include <QFile>
 
 ExampleModel::ExampleModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
-    fillDataTable();
 }
 
 
-void ExampleModel::fillDataTable()
+void ExampleModel::fillDataTableFromFile(QString path)
 {
-    for (int i = 0; i < 5; ++i)
-    {
-        QList<QString> newRow;
-        for (int j = 0; j < 8; ++j)
-        {
-            newRow.append(QStringLiteral("row %1, col %2").arg(i).arg(j));
-        }
-        dataTable.append(newRow);
+    QFile inputFile(path);
+    inputFile.open(QFile::ReadOnly | QFile::Text);
+    QTextStream inputStream(&inputFile);
+
+    QString firstline = inputStream.readLine();
+    for (QString& item : firstline.split(",")) {
+        headerList.append(item);
     }
+
+    while(!inputStream.atEnd())
+    {
+        QString line = inputStream.readLine();
+        
+        QList<QString> dataRow;
+        for (QString& item : line.split(",")) {
+            dataRow.append(item);
+        }
+        dataTable.append(dataRow);
+    }
+    inputFile.close();
 }
 
 int ExampleModel::rowCount(const QModelIndex &parent) const
@@ -41,16 +52,46 @@ int ExampleModel::columnCount(const QModelIndex &parent) const
     return dataTable[0].size();
 }
 
+QVariant ExampleModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
+    {
+        return headerList[section];
+    }
+    return QVariant();
+}
+
 QVariant ExampleModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid())
         return QVariant();
     
-    if (role == Qt::DisplayRole)
+    if (role == Qt::DisplayRole || role == Qt::EditRole)
     {
         int row = index.row();
         int col = index.column();
         return dataTable[row][col];
     }
     return QVariant();
+}
+
+bool ExampleModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (data(index, role) != value) {
+        int row = index.row();
+        int col = index.column();
+        dataTable[row][col] = value.toString();
+        emit dataChanged(index, index, {role});
+        return true;
+    }
+    return false;
+}
+
+
+Qt::ItemFlags ExampleModel::flags(const QModelIndex &index) const
+{
+    if (!index.isValid())
+        return Qt::NoItemFlags;
+    
+    return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
 }

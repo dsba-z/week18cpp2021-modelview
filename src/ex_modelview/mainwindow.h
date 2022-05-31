@@ -16,6 +16,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     
+private slots:
+    void loadFile();
+    
 private:
     ExampleModel *_exampleModel;
     Ui::MainWindow *ui;
