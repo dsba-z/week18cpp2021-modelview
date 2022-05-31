@@ -320,6 +320,7 @@ Add a button that adds a new row to your data. Fill the new row with whatever yo
 
 Add functions from the instruction to set custom header data. Make a new `QList<QString>` that stores headers. Fill it together with data (as the first line of the csv file). Return it in `headerData()`. You should return it for `Qt::DisplayRole` and when orientation is `Qt::Horizontal`.
 
+
 ## Task 7. Displaying details.
 
 Hide some columns from the view.
@@ -328,3 +329,6 @@ You can use `ui->tableView->setColumnHidden(0, true);` to hide the first column.
 
 Leave the column with name and 2-3 other columns you would like to leave.
 
+Add several `QLabel` objects that will display data of the currently selected passenger.
+
+Use the signal `clicked(QModelIndex)` of `tableView` to find which cell the user clicked. Connect it to a slot that changes the `QLabel` objects to output correct data.
