@@ -36,3 +36,6 @@ build*
 
 # Configuration
 */CMakeLists.txt.user
+
+.vscode
+
