@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTransposeProxyModel>
 #include "examplemodel.h"
 
 QT_BEGIN_NAMESPACE
@@ -20,8 +21,12 @@ private slots:
     void loadFile();
     void addRowSlot();
     
+    void on_spinBox_valueChanged(int arg1);
+    
 private:
+    size_t _shownDetailsColumn;
     ExampleModel *_exampleModel;
+    QTransposeProxyModel *_transposeModel;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H

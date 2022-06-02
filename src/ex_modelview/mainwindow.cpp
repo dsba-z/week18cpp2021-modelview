@@ -14,6 +14,15 @@ MainWindow::MainWindow(QWidget *parent)
     
     _exampleModel = new ExampleModel(this);
     ui->tableView->setModel(_exampleModel);
+    
+    _transposeModel = new QTransposeProxyModel(this);
+    _transposeModel->setSourceModel(_exampleModel);
+    ui->tableDetailsView->setModel(_transposeModel);
+    for (int i = 1; i < _transposeModel->columnCount(); ++i)
+    {
+        ui->tableDetailsView->hideColumn(i);
+    }
+    _shownDetailsColumn = 0;
 }
 
 
@@ -28,6 +37,12 @@ void MainWindow::loadFile()
     _exampleModel->fillDataTableFromFile(fileName);
     
     ui->tableView->setModel(_exampleModel);
+    _transposeModel->setSourceModel(_exampleModel);
+    for (int i = 1; i < _transposeModel->columnCount(); ++i)
+    {
+        ui->tableDetailsView->hideColumn(i);
+    }
+    _shownDetailsColumn = 0;
 }
 
 
@@ -44,5 +59,13 @@ void MainWindow::addRowSlot()
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+
+void MainWindow::on_spinBox_valueChanged(int value)
+{
+    ui->tableDetailsView->hideColumn(_shownDetailsColumn);
+    _shownDetailsColumn = value;
+    ui->tableDetailsView->setColumnHidden(value, false);
 }
 
