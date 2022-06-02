@@ -82,3 +82,19 @@ Leave the column with name and 2-3 other columns you would like to leave.
 Add several `QLabel` objects that will display data of the currently selected passenger.
 
 Use the signal `clicked(QModelIndex)` of `tableView` to find which cell the user clicked. Connect it to a slot that changes the `QLabel` objects to output correct data.
+
+## Task 8. Add row dialog.
+
+Add a dialog window that adds new rows to your data. Add new designer form class Dialog, add QLineEdit widgets to it and a public variable that stores the new row.
+
+Refer to branch "solved" for examples how to do this.
+
+## Task 9. Add a proxy model.
+
+Add a QTransposeProxyModel to MainWindow. Add a table view widget that uses the proxy model.
+
+Refer to branch "solved" for examples how to do this.
+
+## Task 10. Save to file.
+
+Add a button that lets you save your current data to a file.
