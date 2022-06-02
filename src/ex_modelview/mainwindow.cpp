@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "addrowdialog.h"
 #include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -8,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     QObject::connect(ui->loadButton, SIGNAL(clicked()), this, SLOT(loadFile()));
+    QObject::connect(ui->addRowButton, SIGNAL(clicked()), this, SLOT(addRowSlot()));
     QObject::connect(ui->actionLoad, SIGNAL(triggered()), this, SLOT(loadFile()));
     
     _exampleModel = new ExampleModel(this);
@@ -27,6 +29,17 @@ void MainWindow::loadFile()
     
     ui->tableView->setModel(_exampleModel);
 }
+
+
+void MainWindow::addRowSlot()
+{
+    AddRowDialog d(this);
+    if (d.exec() == QDialog::Accepted)
+    {
+        _exampleModel->appendRow(d.newRow);
+    }
+}
+
 
 MainWindow::~MainWindow()
 {

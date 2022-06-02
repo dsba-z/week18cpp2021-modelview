@@ -95,3 +95,13 @@ Qt::ItemFlags ExampleModel::flags(const QModelIndex &index) const
     
     return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
 }
+
+
+void ExampleModel::appendRow(QList<QString> &row)
+{
+    size_t newRowNumber = rowCount();
+    beginInsertRows(QModelIndex(), newRowNumber, newRowNumber);
+    dataTable.append(row);
+    endInsertRows();
+}
+

@@ -18,6 +18,7 @@ public:
     
 private slots:
     void loadFile();
+    void addRowSlot();
     
 private:
     ExampleModel *_exampleModel;
