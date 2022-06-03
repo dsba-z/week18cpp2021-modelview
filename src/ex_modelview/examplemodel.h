@@ -24,7 +24,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex& index) const override;
     
     void fillDataTableFromFile(QString path);
-    void appendRow(QList<QString> &row);
+    void appendRow(const QList<QString> &row);
 private:
     
     QList<QList<QString>> dataTable;

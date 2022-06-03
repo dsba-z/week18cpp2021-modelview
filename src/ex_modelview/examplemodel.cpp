@@ -97,7 +97,7 @@ Qt::ItemFlags ExampleModel::flags(const QModelIndex &index) const
 }
 
 
-void ExampleModel::appendRow(QList<QString> &row)
+void ExampleModel::appendRow(const QList<QString> &row)
 {
     size_t newRowNumber = rowCount();
     beginInsertRows(QModelIndex(), newRowNumber, newRowNumber);

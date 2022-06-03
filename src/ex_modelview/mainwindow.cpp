@@ -12,12 +12,15 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->addRowButton, SIGNAL(clicked()), this, SLOT(addRowSlot()));
     QObject::connect(ui->actionLoad, SIGNAL(triggered()), this, SLOT(loadFile()));
     
+    
+    
     _exampleModel = new ExampleModel(this);
     ui->tableView->setModel(_exampleModel);
     
     _transposeModel = new QTransposeProxyModel(this);
     _transposeModel->setSourceModel(_exampleModel);
     ui->tableDetailsView->setModel(_transposeModel);
+    
     for (int i = 1; i < _transposeModel->columnCount(); ++i)
     {
         ui->tableDetailsView->hideColumn(i);
@@ -51,7 +54,8 @@ void MainWindow::addRowSlot()
     AddRowDialog d(this);
     if (d.exec() == QDialog::Accepted)
     {
-        _exampleModel->appendRow(d.newRow);
+        _exampleModel->appendRow(d.getNewRow());
+        ui->tableDetailsView->hideColumn(_transposeModel->columnCount() - 1);
     }
 }
 
@@ -67,5 +71,11 @@ void MainWindow::on_spinBox_valueChanged(int value)
     ui->tableDetailsView->hideColumn(_shownDetailsColumn);
     _shownDetailsColumn = value;
     ui->tableDetailsView->setColumnHidden(value, false);
+}
+
+
+void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
+{
+    
 }
 

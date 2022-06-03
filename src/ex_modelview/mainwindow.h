@@ -23,6 +23,8 @@ private slots:
     
     void on_spinBox_valueChanged(int arg1);
     
+    void on_tableView_doubleClicked(const QModelIndex &index);
+    
 private:
     size_t _shownDetailsColumn;
     ExampleModel *_exampleModel;
