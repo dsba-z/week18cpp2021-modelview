@@ -9,23 +9,36 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     QObject::connect(ui->loadButton, SIGNAL(clicked()), this, SLOT(loadFile()));
+    QObject::connect(ui->saveButton, SIGNAL(clicked()), this, SLOT(saveFile()));
     QObject::connect(ui->addRowButton, SIGNAL(clicked()), this, SLOT(addRowSlot()));
     QObject::connect(ui->actionLoad, SIGNAL(triggered()), this, SLOT(loadFile()));
+    QObject::connect(ui->nameFilterlineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(updateFilter(const QString &)));
     
     
     
     _exampleModel = new ExampleModel(this);
     ui->tableView->setModel(_exampleModel);
     
-    _transposeModel = new QTransposeProxyModel(this);
-    _transposeModel->setSourceModel(_exampleModel);
-    ui->tableDetailsView->setModel(_transposeModel);
-    
-    for (int i = 1; i < _transposeModel->columnCount(); ++i)
-    {
-        ui->tableDetailsView->hideColumn(i);
-    }
+    proxyModel = new QSortFilterProxyModel(this);
+
+    // _transposeModel = new QTransposeProxyModel(this);
+    proxyModel->setSourceModel(_exampleModel);
+    ui->tableDetailsView->setModel(proxyModel);
+    ui->tableDetailsView->setSortingEnabled(true);
+
+    // proxyModel->sort(2, Qt::AscendingOrder);
+    proxyModel->setFilterKeyColumn(3);
+
+
+
+// A common use case is to let the user specify the filter regular expression, wildcard pattern, or fixed string in a QLineEdit and to connect the textChanged() signal to setFilterRegularExpression(), setFilterWildcard(), or setFilterFixedString() to reapply the filter.
+
     _shownDetailsColumn = 0;
+}
+
+void MainWindow::updateFilter(const QString & text)
+{
+    proxyModel->setFilterWildcard(text);
 }
 
 
@@ -40,14 +53,19 @@ void MainWindow::loadFile()
     _exampleModel->fillDataTableFromFile(fileName);
     
     ui->tableView->setModel(_exampleModel);
-    _transposeModel->setSourceModel(_exampleModel);
-    for (int i = 1; i < _transposeModel->columnCount(); ++i)
-    {
-        ui->tableDetailsView->hideColumn(i);
-    }
-    _shownDetailsColumn = 0;
+    proxyModel->setSourceModel(_exampleModel);
+
 }
 
+
+void MainWindow::saveFile()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, "Open File",
+                                                    "../",
+                                                    "Data (*.csv)");
+    _exampleModel->saveDataTableToFile(fileName);
+
+}
 
 void MainWindow::addRowSlot()
 {
@@ -55,7 +73,7 @@ void MainWindow::addRowSlot()
     if (d.exec() == QDialog::Accepted)
     {
         _exampleModel->appendRow(d.getNewRow());
-        ui->tableDetailsView->hideColumn(_transposeModel->columnCount() - 1);
+        // ui->tableDetailsView->hideColumn(proxyModel->columnCount() - 1);
     }
 }
 
@@ -68,9 +86,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_spinBox_valueChanged(int value)
 {
-    ui->tableDetailsView->hideColumn(_shownDetailsColumn);
-    _shownDetailsColumn = value;
-    ui->tableDetailsView->setColumnHidden(value, false);
+    // ui->tableDetailsView->hideColumn(_shownDetailsColumn);
+    // _shownDetailsColumn = value;
+    // ui->tableDetailsView->setColumnHidden(value, false);
 }
 
 

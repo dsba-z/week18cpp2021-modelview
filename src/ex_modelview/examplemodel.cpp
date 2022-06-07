@@ -31,6 +31,50 @@ void ExampleModel::fillDataTableFromFile(QString path)
     inputFile.close();
 }
 
+void ExampleModel::saveDataTableToFile(QString path)
+{
+    QFile outputFile(path);
+    outputFile.open(QFile::WriteOnly | QFile::Text);
+    QTextStream outputStream(&outputFile);
+
+    bool first = true;
+    for (QString& item : headerList) {
+        if (first)
+        {
+            outputStream << item;
+            first = false;
+        }
+        else
+        {
+            outputStream << ",";
+            outputStream << item;
+        }
+    }
+    outputStream << "\n";
+
+    for (QList<QString>& row: dataTable)
+    {
+        bool first = true;
+        for (QString& item : row) {
+            if (first)
+            {
+                outputStream << item;
+                first = false;
+            }
+            else
+            {
+                outputStream << ",";
+                outputStream << item;
+            }
+        }
+        outputStream << "\n";
+    }
+
+    outputFile.close();
+}
+
+
+
 int ExampleModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
