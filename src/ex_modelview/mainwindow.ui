@@ -108,6 +108,13 @@
       </layout>
      </widget>
     </item>
+    <item row="16" column="6">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Name:</string>
+      </property>
+     </widget>
+    </item>
     <item row="7" column="6" colspan="3">
      <widget class="QSpinBox" name="spinBox">
       <property name="maximum">
@@ -117,6 +124,9 @@
     </item>
     <item row="4" column="1" rowspan="12" colspan="4">
      <widget class="QTableView" name="tableDetailsView"/>
+    </item>
+    <item row="9" column="6">
+     <widget class="QLineEdit" name="nameEdit"/>
     </item>
     <item row="15" column="6">
      <spacer name="verticalSpacer">
@@ -159,6 +169,13 @@
       </property>
      </widget>
     </item>
+    <item row="16" column="7">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>_______</string>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="3">
      <widget class="QLineEdit" name="nameFilterlineEdit">
       <property name="placeholderText">
@@ -187,8 +204,19 @@
       </property>
      </widget>
     </item>
-    <item row="9" column="6">
-     <widget class="QLineEdit" name="nameEdit"/>
+    <item row="17" column="6">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Age:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="17" column="7">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>_______</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

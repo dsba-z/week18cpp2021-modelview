@@ -35,6 +35,10 @@ private slots:
     void setName();
     
     void deleteRowSlot();
+    void on_fareFromSlider_valueChanged(int value);
+    
+    void changeActiveRow(const QModelIndex &index);
+    
 private:
     size_t _shownDetailsColumn;
     ExampleModel *_exampleModel;

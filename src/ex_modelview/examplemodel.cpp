@@ -1,5 +1,7 @@
 #include "examplemodel.h"
 #include <QFile>
+#include <QMessageBox>
+
 
 ExampleModel::ExampleModel(QObject *parent)
     : QAbstractTableModel(parent)
@@ -141,7 +143,7 @@ bool ExampleModel::setData(const QModelIndex &index, const QVariant &value, int 
     if (data(index, role) != value) {
         int row = index.row();
         int col = index.column();
-        dataTable[row][col] = value.toString();
+        dataTable[row][col] = value;
         emit dataChanged(index, index, {role});
         return true;
     }

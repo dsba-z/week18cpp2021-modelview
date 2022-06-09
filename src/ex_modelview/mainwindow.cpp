@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     QObject::connect(ui->nameEdit, SIGNAL(editingFinished()), this, SLOT(setName()));
     
+    QObject::connect(ui->tableDetailsView, SIGNAL(clicked(QModelIndex)), this, SLOT(changeActiveRow(QModelIndex)));
+    
 
     
     _exampleModel = new ExampleModel(this);
@@ -158,5 +160,23 @@ void MainWindow::on_spinBox_valueChanged(int value)
 void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 {
     
+}
+
+
+void MainWindow::on_fareFromSlider_valueChanged(int value)
+{
+    
+}
+
+void MainWindow::changeActiveRow(const QModelIndex &index)
+{
+    int row = index.row();
+    int column = 5;
+    
+    QModelIndex ageIndex = _exampleModel->index(row, column);
+    
+    QVariant ageData = _exampleModel->data(ageIndex);
+    
+    ui->label_4->setText(ageData.toString());
 }
 
