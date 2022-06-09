@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     QObject::connect(ui->loadButton, SIGNAL(clicked()), this, SLOT(loadFile()));
+    QObject::connect(ui->deleteButton, SIGNAL(clicked()), this, SLOT(deleteRowSlot()));
     QObject::connect(ui->saveButton, SIGNAL(clicked()), this, SLOT(saveFile()));
     QObject::connect(ui->addRowButton, SIGNAL(clicked()), this, SLOT(addRowSlot()));
     QObject::connect(ui->actionLoad, SIGNAL(triggered()), this, SLOT(loadFile()));
@@ -16,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->lineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(updateFilter2(const QString &)));
     
     QObject::connect(ui->fareFromSlider, SIGNAL(valueChanged(int)), this, SLOT(updateFilterMinFare(int)));
+    QObject::connect(ui->fareFromSlider, SIGNAL(valueChanged(int)), this, SLOT(updateFromLineEdit(int)));
     QObject::connect(ui->fareToSlider, SIGNAL(valueChanged(int)), this, SLOT(updateFilterMaxFare(int)));
 
     
@@ -40,6 +42,21 @@ MainWindow::MainWindow(QWidget *parent)
 
 // A common use case is to let the user specify the filter regular expression, wildcard pattern, or fixed string in a QLineEdit and to connect the textChanged() signal to setFilterRegularExpression(), setFilterWildcard(), or setFilterFixedString() to reapply the filter.
     
+    
+}
+
+void MainWindow::updateFromLineEdit(int value)
+{
+    ui->fareFromLineEdit->setText(QVariant(value).toString());
+}
+
+void MainWindow::deleteRowSlot()
+{
+    QModelIndex idx1 = ui->tableDetailsView->currentIndex();
+    QModelIndex idx2 = proxyModelFare->mapToSource(idx1);
+    QModelIndex idx3 = proxyModel2->mapToSource(idx2);
+    QModelIndex idx4 = proxyModel->mapToSource(idx3);
+    _exampleModel->removeRow(idx4.row());
     
 }
 

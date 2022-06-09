@@ -28,7 +28,7 @@ void AddRowDialog::saveAddedRow()
     newRow.push_back(0);
     newRow.push_back(0);
     newRow.push_back("");
-    newRow.push_back(0);
+    newRow.push_back(0.0);
     newRow.push_back("");
     newRow.push_back("");
     

@@ -26,6 +26,7 @@ public:
     void fillDataTableFromFile(QString path);
     void saveDataTableToFile(QString path);
     void appendRow(const QList<QVariant> &row);
+    void removeRow(int idx);
 private:
     
     QList<QList<QVariant>> dataTable;

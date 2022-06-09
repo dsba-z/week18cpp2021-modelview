@@ -30,7 +30,9 @@ private slots:
     void updateFilter2(const QString & text);
     void updateFilterMinFare(int value);
     void updateFilterMaxFare(int value);
-
+    void updateFromLineEdit(int value);
+    
+    void deleteRowSlot();
 private:
     size_t _shownDetailsColumn;
     ExampleModel *_exampleModel;

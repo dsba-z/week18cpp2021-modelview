@@ -166,3 +166,10 @@ void ExampleModel::appendRow(const QList<QVariant> &row)
     endInsertRows();
 }
 
+
+void ExampleModel::removeRow(int idx)
+{
+    beginRemoveRows(QModelIndex(), idx, idx);
+    dataTable.remove(idx);
+    endRemoveRows();
+}

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>824</width>
+    <width>1003</width>
     <height>583</height>
    </rect>
   </property>
@@ -15,14 +15,110 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="6" column="6" colspan="3">
+    <item row="9" column="6" colspan="3">
+     <widget class="QGroupBox" name="fareGroupBox">
+      <property name="title">
+       <string>Fare</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="fareFromLabel">
+         <property name="text">
+          <string>From</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLabel" name="fareFromMinLabel">
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="fareFromSlider">
+            <property name="maximum">
+             <number>600</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="fareFromMaLabel">
+            <property name="text">
+             <string>600</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="fareFromLineEdit">
+            <property name="readOnly">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="fareToLabel">
+         <property name="text">
+          <string>To</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_2" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QLabel" name="fareToMinLabel">
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="fareToSlider">
+            <property name="maximum">
+             <number>600</number>
+            </property>
+            <property name="value">
+             <number>600</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="fareToMaxLabel">
+            <property name="text">
+             <string>600</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="7" column="6" colspan="3">
      <widget class="QSpinBox" name="spinBox">
       <property name="maximum">
        <number>999</number>
       </property>
      </widget>
     </item>
-    <item row="13" column="6">
+    <item row="4" column="1" rowspan="11" colspan="4">
+     <widget class="QTableView" name="tableDetailsView"/>
+    </item>
+    <item row="14" column="6">
      <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
@@ -49,7 +145,7 @@
       </property>
      </widget>
     </item>
-    <item row="7" column="6" colspan="3">
+    <item row="8" column="6" colspan="3">
      <widget class="QPushButton" name="pushButton">
       <property name="text">
        <string>PushButton</string>
@@ -70,6 +166,13 @@
       </property>
      </widget>
     </item>
+    <item row="0" column="4">
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="placeholderText">
+       <string>Enter ID</string>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="1">
      <widget class="QComboBox" name="comboBox">
       <property name="placeholderText">
@@ -77,90 +180,10 @@
       </property>
      </widget>
     </item>
-    <item row="8" column="6" colspan="3">
-     <widget class="QGroupBox" name="fareGroupBox">
-      <property name="title">
-       <string>Fare</string>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QLabel" name="fareFromLabel">
-         <property name="text">
-          <string>From</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QWidget" name="widget" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QLabel" name="fareFromMinLabel">
-            <property name="text">
-             <string>0</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSlider" name="fareFromSlider">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="fareFromMaLabel">
-            <property name="text">
-             <string>600</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="fareToLabel">
-         <property name="text">
-          <string>To</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QWidget" name="widget_2" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QLabel" name="fareToMinLabel">
-            <property name="text">
-             <string>0</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSlider" name="fareToSlider">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="fareToMaxLabel">
-            <property name="text">
-             <string>600</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="4" column="1" rowspan="10" colspan="4">
-     <widget class="QTableView" name="tableDetailsView"/>
-    </item>
-    <item row="0" column="4">
-     <widget class="QLineEdit" name="lineEdit">
-      <property name="placeholderText">
-       <string>Enter ID</string>
+    <item row="6" column="6" colspan="3">
+     <widget class="QPushButton" name="deleteButton">
+      <property name="text">
+       <string>Delete selected row</string>
       </property>
      </widget>
     </item>
@@ -171,7 +194,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>824</width>
+     <width>1003</width>
      <height>23</height>
     </rect>
    </property>
