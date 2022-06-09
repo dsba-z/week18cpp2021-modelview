@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->addRowButton, SIGNAL(clicked()), this, SLOT(addRowSlot()));
     QObject::connect(ui->actionLoad, SIGNAL(triggered()), this, SLOT(loadFile()));
     QObject::connect(ui->nameFilterlineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(updateFilter(const QString &)));
+    QObject::connect(ui->lineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(updateFilter2(const QString &)));
     
     
     
@@ -20,14 +21,18 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableView->setModel(_exampleModel);
     
     proxyModel = new QSortFilterProxyModel(this);
+    proxyModel2 = new QSortFilterProxyModel(this);
 
     // _transposeModel = new QTransposeProxyModel(this);
     proxyModel->setSourceModel(_exampleModel);
-    ui->tableDetailsView->setModel(proxyModel);
+    proxyModel2->setSourceModel(proxyModel);
+    ui->tableDetailsView->setModel(proxyModel2);
     ui->tableDetailsView->setSortingEnabled(true);
 
     // proxyModel->sort(2, Qt::AscendingOrder);
     proxyModel->setFilterKeyColumn(3);
+    proxyModel2->setFilterKeyColumn(0);
+
 
 
 
@@ -39,6 +44,10 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::updateFilter(const QString & text)
 {
     proxyModel->setFilterWildcard(text);
+}
+void MainWindow::updateFilter2(const QString & text)
+{
+    proxyModel2->setFilterFixedString(text);
 }
 
 

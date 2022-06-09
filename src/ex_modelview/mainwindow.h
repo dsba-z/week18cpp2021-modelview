@@ -26,11 +26,13 @@ private slots:
     
     void on_tableView_doubleClicked(const QModelIndex &index);
     void updateFilter(const QString & text);
+    void updateFilter2(const QString & text);
 
 private:
     size_t _shownDetailsColumn;
     ExampleModel *_exampleModel;
     QSortFilterProxyModel *proxyModel;
+    QSortFilterProxyModel *proxyModel2;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H
