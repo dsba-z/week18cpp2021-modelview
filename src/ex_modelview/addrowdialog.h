@@ -14,7 +14,7 @@ class AddRowDialog : public QDialog
 public:
     explicit AddRowDialog(QWidget *parent = nullptr);
     ~AddRowDialog();
-    const QList<QString>& getNewRow();
+    const QList<QVariant>& getNewRow();
     
 private slots:
     void saveAddedRow();
@@ -22,7 +22,7 @@ private slots:
     
 private:
     
-    QList<QString> newRow;
+    QList<QVariant> newRow;
     Ui::AddRowDialog *ui;
 };
 

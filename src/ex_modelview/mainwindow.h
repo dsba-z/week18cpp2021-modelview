@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QSortFilterProxyModel>
 #include "examplemodel.h"
+#include "customproxymodel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,12 +28,15 @@ private slots:
     void on_tableView_doubleClicked(const QModelIndex &index);
     void updateFilter(const QString & text);
     void updateFilter2(const QString & text);
+    void updateFilterMinFare(int value);
+    void updateFilterMaxFare(int value);
 
 private:
     size_t _shownDetailsColumn;
     ExampleModel *_exampleModel;
     QSortFilterProxyModel *proxyModel;
     QSortFilterProxyModel *proxyModel2;
+    CustomProxyModel *proxyModelFare;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H

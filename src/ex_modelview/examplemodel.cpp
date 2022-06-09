@@ -22,9 +22,26 @@ void ExampleModel::fillDataTableFromFile(QString path)
     {
         QString line = inputStream.readLine();
         
-        QList<QString> dataRow;
+        QList<QVariant> dataRow;
+        int columnIdx = 0;
         for (QString& item : line.split(",")) {
-            dataRow.append(item);
+            if (columnIdx == 3
+             || columnIdx == 4
+             || columnIdx == 8
+             || columnIdx == 10
+             || columnIdx == 11)
+            {
+                dataRow.append(item);
+            }
+            else if (columnIdx == 9)
+            {
+                dataRow.append(item.toDouble());
+            }
+            else
+            {
+                dataRow.append(item.toInt());
+            }
+            ++columnIdx;
         }
         dataTable.append(dataRow);
     }
@@ -52,19 +69,19 @@ void ExampleModel::saveDataTableToFile(QString path)
     }
     outputStream << "\n";
 
-    for (QList<QString>& row: dataTable)
+    for (QList<QVariant>& row: dataTable)
     {
         bool first = true;
-        for (QString& item : row) {
+        for (QVariant& item : row) {
             if (first)
             {
-                outputStream << item;
+                outputStream << item.toString();
                 first = false;
             }
             else
             {
                 outputStream << ",";
-                outputStream << item;
+                outputStream << item.toString();
             }
         }
         outputStream << "\n";
@@ -141,7 +158,7 @@ Qt::ItemFlags ExampleModel::flags(const QModelIndex &index) const
 }
 
 
-void ExampleModel::appendRow(const QList<QString> &row)
+void ExampleModel::appendRow(const QList<QVariant> &row)
 {
     size_t newRowNumber = rowCount();
     beginInsertRows(QModelIndex(), newRowNumber, newRowNumber);

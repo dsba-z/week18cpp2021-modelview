@@ -18,17 +18,17 @@ AddRowDialog::AddRowDialog(QWidget *parent) :
 
 void AddRowDialog::saveAddedRow()
 {
-    newRow.push_back(ui->IDLineEdit->text());
-    newRow.push_back(ui->comboBox->currentText());
-    newRow.push_back(QVariant(ui->checkBox->checkState()).toString());
+    newRow.push_back(ui->IDLineEdit->text().toInt());
+    newRow.push_back(ui->comboBox->currentText().toInt());
+    newRow.push_back(QVariant(ui->checkBox->checkState()).toInt());
     newRow.push_back(ui->nameLineEdit->text());
     newRow.push_back(ui->sexLineEdit->text());
-    newRow.push_back(ui->spinBox->text());
+    newRow.push_back(ui->spinBox->value());
     // other fields
+    newRow.push_back(0);
+    newRow.push_back(0);
     newRow.push_back("");
-    newRow.push_back("");
-    newRow.push_back("");
-    newRow.push_back("");
+    newRow.push_back(0);
     newRow.push_back("");
     newRow.push_back("");
     
@@ -37,7 +37,7 @@ void AddRowDialog::saveAddedRow()
     accept();
 }
 
-const QList<QString>& AddRowDialog::getNewRow()
+const QList<QVariant>& AddRowDialog::getNewRow()
 {
     return newRow;
 }

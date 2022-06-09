@@ -15,30 +15,44 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->nameFilterlineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(updateFilter(const QString &)));
     QObject::connect(ui->lineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(updateFilter2(const QString &)));
     
-    
+    QObject::connect(ui->fareFromSlider, SIGNAL(valueChanged(int)), this, SLOT(updateFilterMinFare(int)));
+    QObject::connect(ui->fareToSlider, SIGNAL(valueChanged(int)), this, SLOT(updateFilterMaxFare(int)));
+
     
     _exampleModel = new ExampleModel(this);
-    ui->tableView->setModel(_exampleModel);
+//    ui->tableView->setModel(_exampleModel);
     
     proxyModel = new QSortFilterProxyModel(this);
     proxyModel2 = new QSortFilterProxyModel(this);
-
+    proxyModelFare = new CustomProxyModel(this);
+    
     // _transposeModel = new QTransposeProxyModel(this);
     proxyModel->setSourceModel(_exampleModel);
     proxyModel2->setSourceModel(proxyModel);
-    ui->tableDetailsView->setModel(proxyModel2);
+    proxyModelFare->setSourceModel(proxyModel2);
+    
+    ui->tableDetailsView->setModel(proxyModelFare);
     ui->tableDetailsView->setSortingEnabled(true);
 
     // proxyModel->sort(2, Qt::AscendingOrder);
     proxyModel->setFilterKeyColumn(3);
     proxyModel2->setFilterKeyColumn(0);
 
-
-
-
 // A common use case is to let the user specify the filter regular expression, wildcard pattern, or fixed string in a QLineEdit and to connect the textChanged() signal to setFilterRegularExpression(), setFilterWildcard(), or setFilterFixedString() to reapply the filter.
+    
+    
+}
 
-    _shownDetailsColumn = 0;
+void MainWindow::updateFilterMinFare(int value)
+{
+    proxyModelFare->setFilterMinimumFare(value);
+    
+}
+
+void MainWindow::updateFilterMaxFare(int value)
+{
+    proxyModelFare->setFilterMaximumFare(value);
+    
 }
 
 void MainWindow::updateFilter(const QString & text)
@@ -61,7 +75,7 @@ void MainWindow::loadFile()
                                                     "Data (*.csv)");
     _exampleModel->fillDataTableFromFile(fileName);
     
-    ui->tableView->setModel(_exampleModel);
+//    ui->tableView->setModel(_exampleModel);
     proxyModel->setSourceModel(_exampleModel);
 
 }

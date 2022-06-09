@@ -24,6 +24,8 @@ set(PROJECT_SOURCES
         ex_modelview/addrowdialog.h
         ex_modelview/addrowdialog.cpp
         ex_modelview/addrowdialog.ui
+        ex_modelview/customproxymodel.h
+        ex_modelview/customproxymodel.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

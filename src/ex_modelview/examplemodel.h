@@ -25,10 +25,10 @@ public:
     
     void fillDataTableFromFile(QString path);
     void saveDataTableToFile(QString path);
-    void appendRow(const QList<QString> &row);
+    void appendRow(const QList<QVariant> &row);
 private:
     
-    QList<QList<QString>> dataTable;
+    QList<QList<QVariant>> dataTable;
     QList<QString> headerList;
 };
 
