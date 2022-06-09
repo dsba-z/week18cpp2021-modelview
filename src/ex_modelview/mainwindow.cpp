@@ -1,7 +1,9 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "addrowdialog.h"
+#include "aboutdialog.h"
 #include <QFileDialog>
+#include <QRegularExpression>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,12 +15,16 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->saveButton, SIGNAL(clicked()), this, SLOT(saveFile()));
     QObject::connect(ui->addRowButton, SIGNAL(clicked()), this, SLOT(addRowSlot()));
     QObject::connect(ui->actionLoad, SIGNAL(triggered()), this, SLOT(loadFile()));
+    QObject::connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(showAbout()));
     QObject::connect(ui->nameFilterlineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(updateFilter(const QString &)));
     QObject::connect(ui->lineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(updateFilter2(const QString &)));
     
     QObject::connect(ui->fareFromSlider, SIGNAL(valueChanged(int)), this, SLOT(updateFilterMinFare(int)));
     QObject::connect(ui->fareFromSlider, SIGNAL(valueChanged(int)), this, SLOT(updateFromLineEdit(int)));
     QObject::connect(ui->fareToSlider, SIGNAL(valueChanged(int)), this, SLOT(updateFilterMaxFare(int)));
+
+    QObject::connect(ui->nameEdit, SIGNAL(editingFinished()), this, SLOT(setName()));
+    
 
     
     _exampleModel = new ExampleModel(this);
@@ -43,6 +49,23 @@ MainWindow::MainWindow(QWidget *parent)
 // A common use case is to let the user specify the filter regular expression, wildcard pattern, or fixed string in a QLineEdit and to connect the textChanged() signal to setFilterRegularExpression(), setFilterWildcard(), or setFilterFixedString() to reapply the filter.
     
     
+}
+
+void MainWindow::setName()
+{
+    QString newName = ui->nameEdit->text();
+    QModelIndex idx1 = ui->tableDetailsView->currentIndex();
+    QModelIndex idx2 = proxyModelFare->mapToSource(idx1);
+    QModelIndex idx3 = proxyModel2->mapToSource(idx2);
+    QModelIndex idx4 = proxyModel->mapToSource(idx3);
+    QModelIndex idxName = proxyModel->index(idx4.row(), 3);
+    _exampleModel->setData(idxName, newName);
+}
+
+void MainWindow::showAbout()
+{
+    AboutDialog d;
+    d.exec();
 }
 
 void MainWindow::updateFromLineEdit(int value)
@@ -74,7 +97,7 @@ void MainWindow::updateFilterMaxFare(int value)
 
 void MainWindow::updateFilter(const QString & text)
 {
-    proxyModel->setFilterWildcard(text);
+    proxyModel->setFilterRegularExpression(QRegularExpression(text));
 }
 void MainWindow::updateFilter2(const QString & text)
 {

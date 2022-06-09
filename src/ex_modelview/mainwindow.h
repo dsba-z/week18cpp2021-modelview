@@ -31,6 +31,8 @@ private slots:
     void updateFilterMinFare(int value);
     void updateFilterMaxFare(int value);
     void updateFromLineEdit(int value);
+    void showAbout();
+    void setName();
     
     void deleteRowSlot();
 private:
